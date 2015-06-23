@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.shinc.orm.mybatis.mappers.ManageUserMapper">
+
+	
+	
+	<resultMap id="UserRoleBeanResultMap" type="ManageUserBean">
+		<id property="id" column="id" />
+		<result property="username" column="username" />
+		<result property="type" column="type" />
+	</resultMap>
+	
+	
+	<!--  用户管理权限查询（开始）  -->
+	<select id="selectUserRole" parameterType="ManageUserBean" resultMap="UserRoleBeanResultMap">
+		SELECT 
+		    a.id, a.username,  a.type
+		FROM
+		    ch_manage_user a
+		<where>
+			<if test="username != null">
+    			AND a.username = #{username}
+ 			 </if>
+		</where>
+	
+		<if test="start != null">
+    		LIMIT #{start} , #{length}
+ 		</if>  
+		    
+	</select>
+	
+	
+</mapper>
